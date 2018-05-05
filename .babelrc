@@ -1,0 +1,10 @@
+{
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-react-jsx-source",
+        "transform-inline-environment-variables"
+      ]
+    }
+  }
+}

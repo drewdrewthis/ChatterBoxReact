@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import { ApolloProvider, Query } from 'react-apollo';
-import logo from './logo.svg';
+import logo from '../../assets/logo.svg';
 import './App.css';
 
 const client = new ApolloClient({
