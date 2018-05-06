@@ -1,16 +1,15 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
-const GET_TODOS = gql`
+export const USER_QUERY = gql`
   query {
-    allTodos {
+    allUsers {
       id
-      title
-      description
+      nickname
     }
   }
 `;
 
-export default graphql(GET_TODOS, {
+export default graphql(USER_QUERY, {
   props: (props) => props.data
 });

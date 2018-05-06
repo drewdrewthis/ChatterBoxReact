@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import client from './apolloClient';
-import todoReducer from './containers/Todos/reducer';
+// import todoReducer from './containers/Todos/reducer';
 
 const rootReducer = combineReducers({
-  todos: todoReducer,
+  // todos: todoReducer,
   apollo: client.reducer(),
 });
 

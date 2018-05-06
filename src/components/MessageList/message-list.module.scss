@@ -1,0 +1,20 @@
+.message-list {
+  padding: 20px;
+  list-style: none;
+
+  li {
+    border: 1px solid lightgrey;
+    padding: 3px 8px;
+    background: lightblue;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    position: relative;
+    display: flex;
+
+    .user {
+      color: blue;
+      font-weight: bold;
+      width: 100px;
+    }
+  }
+}

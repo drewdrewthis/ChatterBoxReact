@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from './selectors';
-import TodoList from '../../components/TodoList';
+// import { connect } from './selectors';
+import UserList from 'components/UserList';
 
-class Todos extends Component {
+class Users extends Component {
   handleOnChange = (e) => {
     const {
-      updateTodoFilter,
+      updateUserFilter,
     } = this.props;
 
-    updateTodoFilter(e.target.value);
+    updateUserFilter(e.target.value);
   }
 
   render() {
     const {
       loading,
-      todos,
+      users,
       className,
     } = this.props;
 
@@ -23,19 +23,19 @@ class Todos extends Component {
 
     return (
       <div className={className}>
-        <h2>TODO LIST</h2>
+        <h2>USER LIST</h2>
         <input onChange={this.handleOnChange} />
-        <TodoList todos={todos} />
+        <UserList users={users} />
       </div>
     );
   }
 }
 
-Todos.propTypes = {
-  updateTodoFilter: PropTypes.func.isRequired,
+Users.propTypes = {
+  updateUserFilter: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   className: PropTypes.string,
 };
 
-export default connect(Todos);
+export default Users;

@@ -1,11 +1,11 @@
 import { compose, bindActionCreators } from 'redux';
 import { connect as reduxConnect } from 'react-redux';
-import todosQuery from 'graphql/queries/todos';
+import userQuery from 'graphql/queries/users';
 import * as Actions from './actions';
 
 const mapStateToProps = (state, props) => {
   const {
-    allTodos = [],
+    allUsers = [],
   } = props;
 
   const {
@@ -14,14 +14,14 @@ const mapStateToProps = (state, props) => {
 
   return {
     todos: filter
-      ? allTodos.filter(todo => todo.title.toLowerCase().includes(filter.toLowerCase()))
-      : allTodos,
+      ? allUsers.filter(todo => todo.title.toLowerCase().includes(filter.toLowerCase()))
+      : allUsers,
   };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
 export const connect = ComponentClass => compose(
-  todosQuery,
+  userQuery,
   reduxConnect(mapStateToProps, mapDispatchToProps),
 )(ComponentClass);

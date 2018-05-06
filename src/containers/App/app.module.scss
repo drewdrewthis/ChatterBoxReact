@@ -1,4 +1,21 @@
-.todo {
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.app {
+  display: flex;
+  flex: 1 1 0;
+}
+
+.convo {
+  flex: 1 1 0;
+}
+
+.user-list {
+  padding: 20px;
   max-width: 500px;
   margin: auto;
+  border-right: 1px solid black;
+  height: 100%;
 }
