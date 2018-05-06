@@ -1,56 +1,23 @@
-import React, { Component } from 'react';
-import ApolloClient from "apollo-boost";
-import gql from "graphql-tag";
-import { ApolloProvider, Query } from 'react-apollo';
+import React from 'react';
+import PropTypes from 'prop-types';
 import logo from '../../assets/logo.svg';
+import { connect } from './selectors';
+import Todos from '../Todos';
 import './App.css';
 
-const client = new ApolloClient({
-  uri: 'http://localhost:3001/graphql',
-});
+const App = props => (
+  <div className="App">
+    <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+      <h1 className="App-title">Welcome to React</h1>
+      <p>{props.filter}</p>
+    </header>
+    <Todos />
+  </div>
+);
 
-const GET_TODOS = gql`
-  query {
-    allTodos {
-      id
-      title
-      description
-    }
-  }
-`;
+App.propTypes = {
+  filter: PropTypes.string.isRequired,
+};
 
-class App extends Component {
-  componentDidMount() {
-    client
-      .query({
-        query: GET_TODOS
-      })
-      .then(result => console.log(result));
-  }
-
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <Query query={GET_TODOS}>
-          {(data) => {
-            console.log(data);
-
-            return (
-              <div className="App">
-                <header className="App-header">
-                  <img src={logo} className="App-logo" alt="logo" />
-                  <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                  To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-              </div>
-            )
-          }}
-        </Query>
-      </ApolloProvider>
-    );
-  }
-}
-
-export default App;
+export default connect(App);
