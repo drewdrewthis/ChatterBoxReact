@@ -1,0 +1,21 @@
+.todo-list {
+  padding: 0;
+  list-style: none;
+
+  li {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    position: relative;
+
+    .top,
+    .bottom {
+      padding: 5px;
+    }
+
+    .top {
+      font-weight: bold;
+      background-color: lightblue;
+    }
+  }
+}

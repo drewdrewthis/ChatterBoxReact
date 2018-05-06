@@ -1,17 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './todo-list.module.scss';
 
 const renderTodo = todo => (
-  <li key={todo.id}>{todo.title}</li>
+  <li key={todo.id}>
+    <div className={styles.top}>
+      {todo.title}
+    </div>
+    <div className={styles.bottom}>
+      {todo.description}
+    </div>
+  </li>
 );
 
 const TodoList = (props) => {
   const { todos } = props;
 
   return (
-    <ul>
+    <ol className={styles['todo-list']}>
       { todos.map(renderTodo) }
-    </ul>
+    </ol>
   );
 };
 
