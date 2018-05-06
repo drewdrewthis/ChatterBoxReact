@@ -16,12 +16,13 @@ class Todos extends Component {
     const {
       loading,
       todos,
+      className,
     } = this.props;
 
     if (loading) { return null; }
 
     return (
-      <div className="Todos">
+      <div className={className}>
         <h2>TODO LIST</h2>
         <input onChange={this.handleOnChange} />
         <TodoList todos={todos} />
@@ -34,6 +35,7 @@ Todos.propTypes = {
   updateTodoFilter: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  className: PropTypes.string,
 };
 
 export default connect(Todos);

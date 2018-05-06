@@ -1,7 +1,7 @@
 import { compose, bindActionCreators } from 'redux';
 import { connect as reduxConnect } from 'react-redux';
+import todosQuery from 'graphql/queries/todos';
 import * as Actions from './actions';
-import todosQuery from '../../graphql/queries/todos';
 
 const mapStateToProps = (state, props) => {
   const {
@@ -14,7 +14,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     todos: filter
-      ? allTodos.filter(todo => todo.title.includes(filter))
+      ? allTodos.filter(todo => todo.title.toLowerCase().includes(filter.toLowerCase()))
       : allTodos,
   };
 };
