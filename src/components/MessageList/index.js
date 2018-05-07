@@ -13,12 +13,12 @@ const renderMessage = message => (
 const MessageList = (props) => {
   const {
     messages,
-    className
+    className,
   } = props;
 
   const classes = cx(
     styles['message-list'],
-    className
+    className,
   );
 
   return (
@@ -29,10 +29,8 @@ const MessageList = (props) => {
 };
 
 MessageList.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    nickname: PropTypes.string.isRequired,
-  })).isRequired,
+  className: PropTypes.string,
+  messages: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default MessageList;

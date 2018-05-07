@@ -11,5 +11,5 @@ export const USER_QUERY = gql`
 `;
 
 export default graphql(USER_QUERY, {
-  props: (props) => props.data
+  props: props => props.data,
 });

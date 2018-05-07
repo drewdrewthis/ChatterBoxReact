@@ -13,6 +13,7 @@
     display: flex;
 
     .user {
+      flex-shrink: 0;
       color: blue;
       font-weight: bold;
       width: 100px;
