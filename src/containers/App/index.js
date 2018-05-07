@@ -7,28 +7,34 @@ import Coversation from '../Conversation';
 import styles from './app.module.scss';
 import './App.css';
 
-const App = props => {
-  console.log(props);
-  const {
-    loading,
-    data
-  } = props;
+class App extends React.Component {
+  componentDidMount() {
+    this.props.subscribeToNewMessages();
+  }
 
-  if (loading) { return null; }
+  render() {
+    const {
+      loading,
+      data
+    } = this.props;
 
-  return (
-    <div className={styles['app-container']}>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to React</h1>
-        <p>{props.filter}</p>
-      </header>
-      <div className={styles.app}>
-        <Users users={data.allUsers} className={styles['user-list']} />
-        <Coversation messages={data.allMessages} className={styles.convo}/>
+    console.log('app', this.props)
+
+    if (loading || !data.allMessages) { return null; }
+
+    return (
+      <div className={styles['app-container']}>
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <div className={styles.app}>
+          <Users users={data.allUsers} className={styles['user-list']} />
+          <Coversation messages={data.allMessages} className={styles.convo}/>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 App.propTypes = {

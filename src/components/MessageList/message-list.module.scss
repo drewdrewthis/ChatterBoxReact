@@ -1,6 +1,7 @@
 .message-list {
   padding: 20px;
   list-style: none;
+  overflow: scroll;
 
   li {
     border: 1px solid lightgrey;

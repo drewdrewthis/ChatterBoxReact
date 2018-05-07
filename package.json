@@ -12,6 +12,7 @@
     "lint:fix": "git diff master --name-only | grep \"\\.js$\" | xargs yarn eslint --fix"
   },
   "dependencies": {
+    "actioncable": "^5.2.0",
     "apollo-boost": "^0.1.5",
     "apollo-link-ws": "^1.0.8",
     "babel-eslint": "^8.2.2",
@@ -24,6 +25,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "graphql": "^0.13.2",
+    "graphql-ruby-client": "^1.4.0",
     "graphql-tag": "^2.9.2",
     "lodash": "^4.17.5",
     "native-base": "^2.3.10",

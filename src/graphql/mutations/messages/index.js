@@ -13,6 +13,7 @@ export const ADD_MESSAGE = gql`
     ) {
       id
       user {
+        id
         nickname
       }
       conversation_id

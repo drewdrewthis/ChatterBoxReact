@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
+import find from 'lodash/find';
+import assign from 'lodash/assign';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import { ApolloProvider, Query } from "react-apollo";
 import client from './apolloClient';
-// import { ApolloClient, createNetworkInterface } from 'react-apollo';
-import { USER_QUERY } from 'graphql/queries/users';
+// import { USER_QUERY } from 'graphql/queries/users';
 import { MESSAGE_QUERY } from 'graphql/queries/messages';
-
-
-// class CommentsPage extends Component {
-// componentDidMount() {
-// this.props.subscribeToNewComments();
-// }
-// render() {
-// console.log(this.props);
-// return <h1>hello</h1>
-// }
-// }
+import { MESSAGE_SUBSCRIPTION } from 'graphql/subscriptions/messages';
 
 const AppWithData = ({ params }) => (
   <Query
@@ -27,20 +18,34 @@ const AppWithData = ({ params }) => (
     {({ subscribeToMore, ...result }) => (
       <App
         {...result}
-        subscribeToNewComments={() =>
+        subscribeToNewMessages={() =>
             subscribeToMore({
-              // document: COMMENTS_SUBSCRIPTION,
-              // variables: { repoName: '' },
-              // updateQuery: (prev, { subscriptionData }) => {
-              // if (!subscriptionData.data) return prev;
-              // const newFeedItem = subscriptionData.data.commentAdded;
+              document: MESSAGE_SUBSCRIPTION,
+              variables: { repoName: '' },
+              updateQuery: (prev, { subscriptionData }) => {
+                const { data } = subscriptionData;
+                const { allMessages, allUsers } = prev;
+                const sample = allMessages[0];
 
-              // return Object.assign({}, prev, {
-              // entry: {
-              // comments: [newFeedItem, ...prev.entry.comments]
-              // }
-              // });
-              // }
+                if (!data) return prev;
+                // debugger;
+
+                const newMessage = assign({},
+                  sample,
+                  data.message,
+                  {
+                    user: find(allUsers, u => u.id === data.user.id.toString())
+                  }
+                );
+
+                console.log('uhg', sample, newMessage)
+
+                return assign({}, prev,
+                  {
+                    allMessages: [...prev.allMessages, newMessage]
+                  }
+                );
+              }
             })
         }
       />
