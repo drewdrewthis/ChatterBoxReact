@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import logo from 'assets/logo.svg';
-import { connect } from './selectors';
 import Users from '../Users';
 import Coversation from '../Conversation';
 import styles from './app.module.scss';
@@ -15,22 +14,27 @@ class App extends React.Component {
   render() {
     const {
       loading,
-      data
+      data,
     } = this.props;
 
-    console.log('app', this.props)
+    if (loading) { return null; }
 
-    if (loading || !data.allMessages) { return null; }
+    const id = data.allMessages[0].conversation_id;
 
     return (
       <div className={styles['app-container']}>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Welcome to ChatterBox</h1>
         </header>
         <div className={styles.app}>
           <Users users={data.allUsers} className={styles['user-list']} />
-          <Coversation messages={data.allMessages} className={styles.convo}/>
+          <Coversation
+            id={id}
+            userId={5}
+            className={styles.convo}
+            messages={data.allMessages}
+          />
         </div>
       </div>
     );
@@ -38,7 +42,12 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  filter: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  subscribeToNewMessages: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    allUsers: PropTypes.arrayOf(PropTypes.shape({})),
+    allMessages: PropTypes.arrayOf(PropTypes.shape({})),
+  }),
 };
 
 export default App;

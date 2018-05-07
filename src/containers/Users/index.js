@@ -1,35 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from './selectors';
 import UserList from 'components/UserList';
+import cx from 'classnames';
+import styles from './users.module.scss';
 
-class Users extends Component {
-  handleOnChange = (e) => {
-    const {
-      updateUserFilter,
-    } = this.props;
+const Users = (props) => {
+  const {
+    loading,
+    users,
+    className,
+  } = props;
 
-    updateUserFilter(e.target.value);
-  }
+  if (loading) { return null; }
 
-  render() {
-    const {
-      loading,
-      users,
-      className,
-    } = this.props;
-
-    if (loading) { return null; }
-
-    return (
-      <div className={className}>
-        <h2>USER LIST</h2>
-        <input onChange={this.handleOnChange} />
-        <UserList users={users} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={cx(className, styles.users)}>
+      <h2>USER LIST</h2>
+      <UserList users={users} />
+    </div>
+  );
+};
 
 Users.propTypes = {
   updateUserFilter: PropTypes.func.isRequired,

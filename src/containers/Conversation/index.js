@@ -1,81 +1,38 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Mutation } from 'react-apollo';
 import MessageList from 'components/MessageList';
+import AddMessage from './AddMessage';
 import styles from './conversation.module.scss';
-import { ADD_MESSAGE } from 'graphql/mutations/messages';
 
-const AddMessage = (props) => {
-  let input;
-
+const Conversation = (props) => {
   const {
+    id,
     userId,
-    conversationId
+    loading,
+    messages,
+    className,
   } = props;
 
-  return (
-    <Mutation mutation={ADD_MESSAGE}>
-      {(addMessage, { data }) => (
-        <form
-          className={styles['input-container']}
-          onSubmit={e => {
-            const variables = {
-              user_id: userId,
-              conversation_id: conversationId,
-              body: input.value
-            };
+  if (loading) { return null; }
 
-            e.preventDefault();
-            addMessage({ variables });
-            input.value = "";
-          }}
-        >
-          <input
-            className={styles.input}
-            ref={node => {
-              input = node;
-            }}
-          />
-          <button type="submit" className={styles.button}>Submit</button>
-        </form>
-      )}
-    </Mutation>
+  const classes = cx(
+    styles.conversation,
+    className,
+  );
+
+  return (
+    <div className={classes}>
+      <MessageList messages={messages} className={styles['message-list']} />
+      <AddMessage conversationId={id} userId={userId} />
+    </div>
   );
 };
 
-class Conversation extends React.PureComponent {
-  render() {
-    const {
-      // id,
-      loading,
-      messages,
-      className,
-    } = this.props;
-
-    if (loading) { return null; }
-
-    const classes = cx(
-      styles.conversation,
-      className
-    );
-
-    const user_id = 5;
-    const id = messages[0].conversation_id;
-
-    return (
-      <div className={classes}>
-        <MessageList messages={messages} className={styles['message-list']}/>
-        <AddMessage conversationId={id} userId={user_id} />
-      </div>
-    );
-  }
-}
-
 Conversation.propTypes = {
-  updateUserFilter: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  users: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   className: PropTypes.string,
 };
 

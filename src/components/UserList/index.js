@@ -12,9 +12,9 @@ const UserList = (props) => {
   const { users } = props;
 
   return (
-    <ol className={styles['user-list']}>
+    <ul className={styles['user-list']}>
       { users.map(renderUser) }
-    </ol>
+    </ul>
   );
 };
 
