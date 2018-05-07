@@ -9,6 +9,7 @@ import client from './apolloClient';
 // import { USER_QUERY } from 'graphql/queries/users';
 import { MESSAGE_QUERY } from 'graphql/queries/messages';
 import { MESSAGE_SUBSCRIPTION } from 'graphql/subscriptions/messages';
+import { USER_SUBSCRIPTION } from 'graphql/subscriptions/users';
 
 const AppWithData = ({ params }) => (
   <Query
@@ -18,31 +19,29 @@ const AppWithData = ({ params }) => (
     {({ subscribeToMore, ...result }) => (
       <App
         {...result}
-        subscribeToNewMessages={() =>
+        subscribeToNewUsers={() =>
             subscribeToMore({
-              document: MESSAGE_SUBSCRIPTION,
+              document: USER_SUBSCRIPTION,
               variables: { repoName: '' },
               updateQuery: (prev, { subscriptionData }) => {
                 const { data } = subscriptionData;
                 const { allMessages, allUsers } = prev;
-                const sample = allMessages[0];
+                const sample = allUsers[0];
 
-                if (!data) return prev;
-                // debugger;
+                return prev;
 
-                const newMessage = assign({},
+                if (!data || !data.user) return prev;
+
+                debugger;
+
+                const newUser = assign({},
                   sample,
-                  data.message,
-                  {
-                    user: find(allUsers, u => u.id === data.user.id.toString())
-                  }
+                  data.user
                 );
-
-                console.log('uhg', sample, newMessage)
 
                 return assign({}, prev,
                   {
-                    allMessages: [...prev.allMessages, newMessage]
+                    allUsers: [...prev.allUsers, newUser]
                   }
                 );
               }

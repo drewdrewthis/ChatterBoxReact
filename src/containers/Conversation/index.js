@@ -47,26 +47,23 @@ const AddMessage = (props) => {
 class Conversation extends React.PureComponent {
   render() {
     const {
-      // id,
-      loading,
+      id,
       messages,
       className,
+      userId,
     } = this.props;
 
-    if (loading) { return null; }
+    if (!messages || !messages.length) { return null; }
 
     const classes = cx(
       styles.conversation,
       className
     );
 
-    const user_id = 5;
-    const id = messages[0].conversation_id;
-
     return (
       <div className={classes}>
         <MessageList messages={messages} className={styles['message-list']}/>
-        <AddMessage conversationId={id} userId={user_id} />
+        <AddMessage conversationId={id} userId={userId} />
       </div>
     );
   }

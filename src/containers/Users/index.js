@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { connect } from './selectors';
 import UserList from 'components/UserList';
+import { USER_QUERY } from 'graphql/queries/messages';
 
 class Users extends Component {
-  handleOnChange = (e) => {
-    const {
-      updateUserFilter,
-    } = this.props;
-
-    updateUserFilter(e.target.value);
-  }
-
   render() {
     const {
       loading,
@@ -24,7 +17,6 @@ class Users extends Component {
     return (
       <div className={className}>
         <h2>USER LIST</h2>
-        <input onChange={this.handleOnChange} />
         <UserList users={users} />
       </div>
     );
@@ -38,4 +30,46 @@ Users.propTypes = {
   className: PropTypes.string,
 };
 
-export default Users;
+export default (props) = (
+  <Query
+    query={USER_QUERY}
+    variables={{ repoName: '' }}
+  >
+    {({ subscribeToMore, ...result }) => (
+      <User
+        {...props}
+        {...result}
+        subscribeToNewUsers={() =>
+            subscribeToMore({
+              document: USER_SUBSCRIPTION,
+              variables: { repoName: '' },
+              updateQuery: (prev, { subscriptionData }) => {
+                const { data } = subscriptionData;
+                const { allMessages, allUsers } = prev;
+                const sample = allUsers[0];
+
+                return prev;
+
+                if (!data || !data.user) return prev;
+
+                debugger;
+
+                const newUser = assign({},
+                  sample,
+                  data.user
+                );
+
+                return assign({}, prev,
+                  {
+                    allUsers: [...prev.allUsers, newUser]
+                  }
+                );
+              }
+            })
+        }
+      />
+    )}
+  </Query>
+
+)
+;

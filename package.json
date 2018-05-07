@@ -27,6 +27,7 @@
     "graphql": "^0.13.2",
     "graphql-ruby-client": "^1.4.0",
     "graphql-tag": "^2.9.2",
+    "js-cookie": "^2.2.0",
     "lodash": "^4.17.5",
     "native-base": "^2.3.10",
     "prop-types": "^15.6.1",

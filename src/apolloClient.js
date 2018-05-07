@@ -4,12 +4,12 @@ import ApolloClient from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { split, ApolloLink, Observable } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
+import Cookie from 'js-cookie';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import ActionCable from 'actioncable';
 import ActionCableLink from 'graphql-ruby-client/subscriptions/ActionCableLink';
 var printer = require("graphql/language/printer");
-
 
 const cable = ActionCable.createConsumer('http://localhost:3001/websocket')
 
@@ -18,7 +18,8 @@ const httpLink = new HttpLink({
   uri: 'http://localhost:3001/graphql'
 });
 
-document.cookie = "nickname=Drew";
+Cookie.remove('nickname');
+Cookie.remove('id');
 var channelName = "GraphqlChannel"
 var actionName = "execute"
 
